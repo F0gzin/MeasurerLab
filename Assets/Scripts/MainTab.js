@@ -1,5 +1,5 @@
 const myElements = document.getElementsByClassName("TankItemMainDiv");
-import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+
 
 const Translations = {
     "gasoline":"Gasolina",
@@ -1092,4 +1092,5 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
     }else{
         window.alert("⚠️Por favor, insira valores válidos.⚠️");
     }
+
 }); 
