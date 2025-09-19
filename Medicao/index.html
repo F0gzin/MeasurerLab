@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estoque do Posto ⛽</title>
+    <link rel="icon" href="../Icon.png">
+</head>
+
+<body>
+    <audio id="AudioAlarm" src="../Assets/Scripts/MainTab.js">ALARM</audio>
+
+    <h1 class="JS_Required_Warning" id="JS_Required_Warning"><img style="width: 40px;" src="/Assets/Images/Generic/JavaScript.png">JavaScript deve estar ativado para o site funcionar.</h1>
+
+
+    <div class="DadosMainDiv" id="DadosMainDiv">
+        <div>
+            <h3>Dados do posto:</h3>
+            <div style="display: flex; height:fit-content;">
+                <img src="../Icon.png" style="height: 120px;">
+
+                <div style="margin-left: 20px;">
+                    <div style="display: flex;">
+                    <strong>Nome: </strong>
+                    <input id="NameInput" type="text">
+                
+                    </div>
+                    <br>
+                    <div style="display: flex;">
+                        <strong>CNPJ:</strong>
+                        <input id="CnpjInput" type="text">
+                    
+                    </div>
+                    <br>
+                    <div style="display: flex;">
+                        <strong>Endereço: </strong>
+                        <input id="AddressInput" type="text">
+                    
+                    </div>
+                    <br>
+                </div>
+            </div>
+
+            <h3>Dados do distribuidor:</h3>
+            <div style="display: flex; height:fit-content;">
+                <img src="../Assets/Images/PlataformaDePetroleo.png" style="height: 120px;">
+
+                <div style="margin-left: 20px;">
+                    <div style="display: flex;">
+                        <strong>Nome: </strong>
+                        <input id="DistributorNameInput" type="text">
+                    </div>
+                    <br>
+
+                    <div style="display: flex;">
+                        <strong>CNPJ:</strong>
+                        <input id="DistributorCnpjInput" type="text">
+                    </div>
+                    <br>
+                    
+                    <br>
+                </div>
+            </div>
+
+            <h3>Dados do transportador:</h3>
+            <div style="display: flex; height:fit-content;">
+                <img src="../Assets/Images/Truck.png" style="height: 120px;">
+
+                <div style="margin-left: 20px;">
+
+                    <div style="display: flex;">
+                        <strong>Transportador:</strong>
+                        <input id="TransporterInput" type="text">
+                    </div>
+                    
+                    <br>
+                    <div style="display: flex;">
+                        <strong>CNPJ:</strong>
+                        <input id="TransporterInput" type="text">
+                    </div>
+                    
+                    <br>
+
+                    <div style="display: flex;">
+                        <strong>Motorista:</strong>
+                        <input id="TransporterInput" type="text">
+                    </div>
+
+                    <br>
+                    <div style="display: flex;">
+                        <strong>Placa:</strong>
+                        <input id="TransporterCnpjInput" type="text">
+                    </div>
+                    
+                    <br>
+                </div>
+            </div>
+
+            <h3>Dados da nota:</h3>
+            <div style="display: flex; height:fit-content;">
+                <img src="../Assets/Images/NFE.png" style="height: 120px;">
+
+                <div style="margin-left: 20px;">
+
+                    <div style="display: flex;">
+                        <strong>Número da Nota:</strong>
+                        <input id="NoteNumberInput" type="number">
+                    </div>
+                    
+                    <br>
+                    <div style="display: flex;">
+                        <strong>Produto:</strong>
+                        <input id="NoteProductInput" type="text">
+                    </div>
+                    
+                    <br>
+
+                    <div style="display: flex;">
+                        <strong>Volume:</strong>
+                        <input id="NoteVolumeInput" type="text">
+                    </div>
+
+                    <br>
+                </div>
+            </div>
+
+            <button class="ConfirmButton" id="GoToAnalise">
+                <p class="ConfirmButtonText">Confirmar ✅</p>
+            </button>
+            
+        </div>
+    </div>
+    
+    <div class="AnaliseMainDiv" id="AnaliseMainDiv" style="height: 120vh; width: 100vw;"  hidden>
+        <div>
+            <div style="display: flex; height:fit-content;">
+                <img src="../Assets/Images/Generic/Lab.png" style="height: 120px;">
+
+                <div>
+                    <div style="display: flex;">
+                        <strong>Tipo de Combustível: </strong>
+                        <select class="AnaliseProductInput" id="AnaliseProductInput" style="height: 20px; align-self: center;">
+                            <option style="background-color: #f99999; cursor: pointer;" value="gasoline">Gasolina</option>
+                            <option style="background-color: #6ac353; cursor: pointer;" value="etanol">Etanol</option>
+                            <option style="background-color: #5f5e5e; cursor: pointer;" value="diesel">Diesel</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div id="AnalisePHInputArea" style="display: flex; margin-left: 20px;">
+                        <strong id="AnalisePHInputText"><strong>%</strong> de Etanol: </strong>
+                        <input id="AnalisePHInput" type="number">
+                    </div>
+                    <br>
+                    <div style="display: flex; margin-left: 20px;">
+                        <strong>Temperatura (°C): </strong>
+                        <input style="height: 20px; align-self: center;" id="AnaliseTemperatureInput" type="number">
+                    </div>
+                    <br>
+                    <div style="display: flex;">
+                        <strong>Densidade (g/cm³): </strong>
+                        <input style="height: 20px; align-self: center;" id="AnaliseDensityInput" type="number">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        
+        <div id="AnaliseOutputText" class="AnaliseOutputText">...</div>
+        <br>
+        <div>
+            <button id="ConfirmAnaliseButton" class="ConfirmButton">
+                <p class="ConfirmButtonText">Analisar</p>
+                <!--<img id="ConfirmButtonImage" src="../Assets/Images/Generic/MagnifyingGlass.png">-->
+            </button>
+        </div>
+        <br>
+        <div>
+            <button id="GeneratePdfButton" class="ConfirmButton">
+                <p class="ConfirmButtonText">Gerar PDF</p>
+            </button>
+        </div>
+
+
+        <br>
+    </div>
+</body>
+
+<link id="MainCss" rel="stylesheet" href="style.css">
+
+<script type="text/javascript">
+    const js_required_warning = document.getElementById("JS_Required_Warning");
+    js_required_warning.remove();
+</script>
+
+<script type="module" src="../Assets/Scripts/MainTab.js"></script>
+<!--<script type="text/javascript" src="../Assets/Scripts/CONVERT.js"></script> </html> -->

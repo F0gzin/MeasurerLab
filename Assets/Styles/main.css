@@ -1,0 +1,14 @@
+body{
+    display: block;
+    justify-content: normal;
+    align-items: normal;
+    height: 100vh;
+    margin: 0;
+    background-color: #ffffff;
+    background-size: 10px;
+    background-repeat: repeat;
+    overflow-y: scroll;
+    font-family: Arial, Helvetica, sans-serif;
+
+
+}

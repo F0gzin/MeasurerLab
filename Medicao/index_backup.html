@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Measurer</title>
+    <link rel="icon" href="../Icon.png">
+</head>
+
+<body>
+    <audio id="AudioAlarm" src="../Assets/ALARM1.wav">ALARM</audio>
+
+    <noscript>
+        <h1 class="JS_Required_Warning" id="JS_Required_Warning"><img style="width: 40px;" src="/Assets/Images/Generic/JavaScript.png">JavaScript deve estar ativado para o site funcionar.</h1>
+    </noscript>
+
+    <div class="AnaliseMainDiv" id="AnaliseMainDiv">
+        <div>
+            <div style="display: flex;">
+                <h4>Tipo de Combustível: </h4>
+                <select class="AnaliseProductInput" id="AnaliseProductInput">
+                    <option style="background-color: #f99999; cursor: pointer;" value="gasoline">Gasolina</option>
+                    <option style="background-color: #6ac353; cursor: pointer;" value="etanol">Etanol</option>
+                    <option style="background-color: #5f5e5e; cursor: pointer;" value="diesel">Diesel</option>
+                </select>
+            </div>
+            <div id="AnalisePHInputArea" style="display: flex;">
+                <h4>pH (Etanol) <strong>ou</strong> % de Etanol (Gasolina): </h4>
+                <input id="AnalisePHInput" type="number">
+            </div>
+            <div style="display: flex;">
+                <h4>Temperatura (°C): </h4>
+                <input id="AnaliseTemperatureInput" type="number">
+            </div>
+            <div style="display: flex;">
+                <h4>Densidade (g/cm³): </h4>
+                <input id="AnaliseDensityInput" type="number">
+            </div>
+        </div>
+
+        <br>
+
+        <div>
+            <button id="ConfirmAnaliseButton" class="ConfirmButton">
+                <p style="position: relative; margin-bottom: 20px;font-size: medium; font-weight: bold;">Analisar</p>
+                <!--<img id="ConfirmButtonImage" src="../Assets/Images/Generic/MagnifyingGlass.png">-->
+            </button>
+        </div>
+
+        <div id="AnaliseOutputText" class="AnaliseOutputText">...</div>
+
+        <br>
+        
+        <!--
+
+        <div>
+            <button id="BackButton3" class="ConfirmButton">
+                <p style="position: relative; margin-bottom: 20px;font-size: medium; font-weight: bold;">Voltar</p>
+                <img id="ConfirmButtonImage" src="https://cdn-icons-png.flaticon.com/512/2099/2099190.png">
+            </button>
+        </div>
+
+        -->
+    </div>      
+</body>
+
+<link id="MainCss" rel="stylesheet" href="../Assets/Styles/main.css">
+
+<script type="module" src="../Assets/Scripts/MainTab.js"></script>
+<!--<script type="text/javascript" src="../Assets/Scripts/CONVERT.js"></script> </html> --> 
