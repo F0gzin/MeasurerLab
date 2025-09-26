@@ -6,7 +6,7 @@
     margin: 0;
     background: linear-gradient(lightblue, darkcyan);
     background-size: 100%;
-    background-repeat:space;
+    background-repeat: repeat;
     overflow-y: scroll;
     font-family: Arial, Helvetica, sans-serif;
     }

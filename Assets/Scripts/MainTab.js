@@ -1,5 +1,7 @@
+
 const myElements = document.getElementsByClassName("TankItemMainDiv");
-//import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+
+const { PDFDocument, StandardFonts, rgb } = PDFLib; 
 
 const Translations = {
     "gasoline":"Gasolina",
@@ -8,24 +10,93 @@ const Translations = {
     "diesel":"Diesel",
 }
 
+const ToAscii = {
+    "Ç":"C",
+    "Á":"A",
+    "À":"A",
+    "Ã":"A",
+    "É":"E",
+    "È":"E",
+    "ç":"c",
+    "á":"a",
+    "à":"a",
+    "ã":"ã",
+    "é":"e",
+    "è":"e",
+    "ä":"a",
+    "ë":"e",
+    "ü":"u",
+    "ÿ":"y",
+    "Ë":"e",
+    "Ü":"u",
+    "Ÿ":"Y"
+}
+
+let LastAnaliseWasValid = false;
+
 const AnaliseDiv = document.getElementById("AnaliseMainDiv");
 const DadosDiv = document.getElementById("DadosMainDiv");
 
 const GoToAnaliseButton = document.getElementById("GoToAnalise");
 const ConfirmAnaliseButton = document.getElementById("ConfirmAnaliseButton");
-
+const GeneratePdfButton = document.getElementById("GeneratePdfButton");
 const textOutputAnalise = document.getElementById("AnaliseOutputText");
 const AnalisePHInputText = document.getElementById("AnalisePHInputText");
 const AnalisePHInputArea = document.getElementById("AnalisePHInputArea");
 const AnalisePHInput = document.getElementById("AnalisePHInput");
 
+let DadosSalvos = {
+    "Posto":{
+        "Nome":"",
+        "CNPJ":"",
+        "Endereco":"",
+    },
+    "Distribuidor":{
+        "Nome":"",
+        "CNPJ":"",
+    },
+    "Transportador":{
+        "Transportador":"",
+        "CNPJ":"",
+        "Motorista":"",
+        "Placa":"",
+    },
+    "Nota":{
+        "Numero":"",
+        "Produto":"",
+        "Quantidade":"",
+    },
+    "Analise":{
+        "Temperatura":"",
+        "Densidade":"",
+        "PercentualDeEtanol":"",
+        "Teor":"",
+    }
+}
+
 GoToAnaliseButton.addEventListener("click",function(ev){
+    DadosSalvos.Posto.Nome = document.getElementById("NameInput").value;
+    DadosSalvos.Posto.CNPJ = document.getElementById("CnpjInput").value;
+    DadosSalvos.Posto.Endereco = document.getElementById("AddressInput").value;
+
+    DadosSalvos.Distribuidor.Nome = document.getElementById("DistributorNameInput").value;
+    DadosSalvos.Distribuidor.CNPJ = document.getElementById("DistributorCnpjInput").value;
+
+    DadosSalvos.Transportador.Transportador = document.getElementById("TransporterInput").value;
+    DadosSalvos.Transportador.CNPJ = document.getElementById("TransporterCNPJInput").value;
+    DadosSalvos.Transportador.Motorista = document.getElementById("TransporterDriverInput").value;
+    DadosSalvos.Transportador.Placa = document.getElementById("TransporterPlateInput").value;
+
+    DadosSalvos.Nota.Numero = document.getElementById("NoteNumberInput").value;
+    DadosSalvos.Nota.Produto = document.getElementById("NoteProductInput").value;
+    DadosSalvos.Nota.Quantidade = document.getElementById("NoteVolumeInput").value;
+
     DadosDiv.hidden = true;
     AnaliseDiv.hidden = false;
 });
 
 const AnaliseProductInput = document.getElementById("AnaliseProductInput");
-
+    
 AnaliseProductInput.addEventListener("change",function(ev){ 
     if(AnaliseProductInput.value === "gasoline"){
         AnalisePHInputText.hidden = false;
@@ -36,7 +107,162 @@ AnaliseProductInput.addEventListener("change",function(ev){
     }
 })
 
+GeneratePdfButton.addEventListener("click",async function(ev){
+    console.log(DadosSalvos);
+    if(!LastAnaliseWasValid){
+        alert("Não pode gerar PDF para analises inválidas.")
+        return;
+    }
+    // Valeu GPT!
+    const urlDoPDF = "../Assets/Template_Pdf.pdf";
+    // Carrega PDF existente (template)
+    const existingPdfBytes = await fetch(urlDoPDF).then(res => res.arrayBuffer());
+    const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
+    const pages = pdfDoc.getPages();
+    const primeiraPagina = pages[0]; 
+    pdfDoc.removePage(1);
+    const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
+    // Desenha o valor no lugar do placeholder
+    try{
+        primeiraPagina.drawText(DadosSalvos.Nota.Quantidade, { // quantidade
+        x: 147,
+        y: 504,
+        size: 13,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+
+    primeiraPagina.drawText(DadosSalvos.Nota.Produto, { // produto
+        x: 147,
+        y: 521,
+        size: 13,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+
+    primeiraPagina.drawText(DadosSalvos.Nota.Numero, { // número da nota
+        x: 180,
+        y: 521+18,
+        size: 13,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+
+    primeiraPagina.drawText(DadosSalvos.Distribuidor.Nome, { // distribuidor
+        x: 147,
+        y: 442,
+        size: 13,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+
+    primeiraPagina.drawText(DadosSalvos.Transportador.Transportador, { // Transportador
+        x: 156,
+        y: 424,
+        size: 13,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+
+    primeiraPagina.drawText(DadosSalvos.Transportador.Motorista, { // Motorista
+        x: 130,
+        y: 409,
+        size: 13,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+
+    primeiraPagina.drawText(DadosSalvos.Distribuidor.CNPJ, { // CNPJ distribuidor
+        x: 340,
+        y: 442,
+        size: 13,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+
+    primeiraPagina.drawText(DadosSalvos.Transportador.CNPJ, { // CNPJ Transportador
+        x: 340,
+        y: 424,
+        size: 13,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+
+    primeiraPagina.drawText(DadosSalvos.Transportador.Placa, { // Placa
+        x: 340,
+        y: 409,
+        size: 13,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+
+    primeiraPagina.drawText(DadosSalvos.Posto.Nome, { // Posto Nome
+        x: 156,
+        y: 345,
+        size: 13,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+
+    primeiraPagina.drawText(DadosSalvos.Posto.CNPJ, { // Posto CNPJ
+        x: 156,
+        y: 330,
+        size: 13,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+
+    primeiraPagina.drawText(DadosSalvos.Posto.Endereco, { // Posto Endereço
+        x: 156,
+        y: 315,
+        size: 13,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+
+    primeiraPagina.drawText(DadosSalvos.Analise.Temperatura, { // Temperatura
+        x: 350,
+        y: 247,
+        size: 12,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+
+    primeiraPagina.drawText(DadosSalvos.Analise.Densidade, { // Densidade
+        x: 350,
+        y: 247-(20*1),
+        size: 12,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+
+    primeiraPagina.drawText(DadosSalvos.Analise.PercentualDeEtanol, { // Percentual de Etanol
+        x: 350,
+        y: 247-(20*2),
+        size: 12,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+
+    primeiraPagina.drawText(DadosSalvos.Analise.Teor, { // Teor
+        x: 350,
+        y: 247-(20*4)+5,
+        size: 12,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+    }catch(e){
+        alert(toString(e));
+    }
+
+    const pdfBytes = await pdfDoc.save();
+    const blob = new Blob([pdfBytes], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
+    window.open(url);
+})
+    
 ConfirmAnaliseButton.addEventListener("click",function(ev){
     
     // ANP density tables
@@ -52,6 +278,10 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
     const type=AnaliseProductInput.value;
     const temp=parseFloat(document.getElementById('AnaliseTemperatureInput').value);
     const dens=parseFloat(document.getElementById('AnaliseDensityInput').value);
+    let teorValue = null;
+
+
+    LastAnaliseWasValid = false;
 
     if(! (isNaN(temp)||isNaN(dens))){
         let teor = '...';
@@ -62,6 +292,7 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
         if(ref==undefined){
             // window.alert(`⚠️Referencias para a temperatura ${temp}°C não foram encontradas⚠️`);
             teor = `<span style="color:#E53E3E";>✖ Fora da medida</span>`;
+
             textOutputAnalise.innerHTML = teor; 
             return
         }
@@ -69,11 +300,11 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
 
         let etanolOrPhText = "pH";
 
-        let teorValue = null;
 
         if (type == 'etanol') {
             if(isNaN(ph)){
                 window.alert("⚠️Por favor, insira um valor válido de pH⚠️");
+                
                 return
             }
             const densStr = dens.toFixed(4);
@@ -1089,7 +1320,18 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
             teor = teor + `<p>%Etanol: 29-31%</p>`;
         }
         textOutputAnalise.innerHTML = teor;
+
+        if(ok&&valid){
+            LastAnaliseWasValid = true;
+        }
     }else{
         window.alert("⚠️Por favor, insira valores válidos.⚠️");
     }
+
+
+
+    DadosSalvos.Analise.Temperatura = temp ? String(temp) : "N/A";
+    DadosSalvos.Analise.Densidade = dens ? String(dens) : "N/A";
+    DadosSalvos.Analise.PercentualDeEtanol = ph ? String(ph) : "N/A";
+    DadosSalvos.Analise.Teor = teorValue ? String(teorValue) : "N/A";
 }); 
