@@ -1321,7 +1321,7 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
         }
         textOutputAnalise.innerHTML = teor;
 
-        if(ok&&valid){
+        if(ok){
             LastAnaliseWasValid = true;
         }
     }else{
@@ -1334,4 +1334,5 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
     DadosSalvos.Analise.Densidade = dens ? String(dens) : "N/A";
     DadosSalvos.Analise.PercentualDeEtanol = ph ? String(ph) : "N/A";
     DadosSalvos.Analise.Teor = teorValue ? String(teorValue) : "N/A";
+
 }); 
