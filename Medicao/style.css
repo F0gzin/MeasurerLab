@@ -2,7 +2,7 @@
     display: block;
     justify-content: normal;
     align-items: normal;
-    height: 100vh;
+    height: 190vh;
     margin: 0;
     background: linear-gradient(lightblue, darkcyan);
     background-size: 100%;
@@ -69,7 +69,10 @@
     color: #f0f0f0;
     width: 300px;
     height: 40px;
+    margin-top: 45px;
     display: flex;
+    margin-left: auto;
+    margin-right: auto;
     align-content: center;
     justify-content: center;
     border-radius: 50px;
@@ -90,15 +93,15 @@
     font-family: sans-serif;
 }
 
-.ConfirmButtonText{
-    margin-top: 10px;
-}
-
 .ConfirmButton:hover {
     transform: translateY(2px);
     border: 2px solid #919191;
     border-top-color: #c9c9c9;
     border-left-color: #c5c5c5;
+}
+
+.ConfirmButtonText{
+    margin-top: 10px;
 }
 
 #ConfirmButtonText{
@@ -109,11 +112,13 @@
 }
 
 .ConfirmButtonText{
-    color: black;
     text-align: center;
-    margin: 7px;
     align-self: baseline;
-    font-family: Comic Sans MS, cursive, sans-serif;
+    font-weight: bold;
+    font-family: Helvetica, sans-serif;
+    text-decoration: none;
+    margin-top: 7px;
+    font-size: medium;
 }
 
 #ConfirmButtonImage{
@@ -132,14 +137,12 @@
 
 .ConfirmTruckButton{
     cursor: pointer;
-    /*background-color: black;*/
     background: none;
     background-color: Transparent;
     background-repeat:no-repeat;
     border: none;
     color: #f0f0f0;
     width: 300px;
-    /*height: 40px;*/
     height: 70px;
     display: flex;
     align-content: center;
@@ -155,41 +158,6 @@
 }
 /*-------------------*/
 
-.TankVizualMain{
-    background-image: linear-gradient(#ff8800,#ff5906);
-    width: 80px;
-    height: 80px;
-    border-color: #000000;
-    border-width: 2px;
-    border-radius: 100%;
-    border: solid 2px;
-    overflow: hidden;
-    display: block;
-}
-
-.TankVizualEmpty{
-    background-color: rgb(255, 255, 255);
-    height: 100%;
-}
-
-.TankVizualTextDiv{
-    position:absolute;
-    display: flex;
-    width: 100%;
-    height: 10px;
-    align-content: center;
-    display: grid;
-    justify-content: center;
-    align-self: center;
-    margin-bottom: 25px;
-}
-
-.TankVizualText{
-    font-weight: bold;
-    font-size:medium;
-    margin: 5px;
-}
-
 .GraphicTankItemMainDiv{
     align-content: center;
     justify-content: center;
@@ -197,18 +165,6 @@
     display: flex;
     flex-wrap: wrap;
     align-self: center;
-}
-
-.TankVizualMainFrame{
-    width: 130px;
-    height: 130px;
-    border-color: #0000;
-    border: solid 2px;
-
-    display:grid;
-    align-content: center;
-    justify-content: center;
-    place-items: center;
 }
 
 .IconeBarril{
@@ -252,12 +208,6 @@
     display: flex;
     align-content: center;
     justify-content: center;
-}
-
-.FillTankButton{
-    background-color: #000000;
-    color: #ffffff;
-    cursor: pointer;
 }
 
 .timer-container {
@@ -331,4 +281,244 @@
 
 input {
     background-image: linear-gradient(to top, rgb(200,200,200), rgb(255,255,255));
+    border-radius: 5px;
+}
+
+.DadosPostoInputs, .DadosDistribuidorInputs, .DadosTransportadorInputs, .DadosNotasInputs {
+    margin-left: 175px;
+    margin-top: -120px;
+}
+
+.DadosPostoDiv {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: #303030 0px 0px 10px 0px;
+    max-width: 750px;
+    max-height: 218px;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    border: solid 1px rgba(236, 236, 236, 0.2);
+    width: auto;
+    height: auto;
+    display: grid;
+}
+
+.DadosPostoDiv h3 {
+    text-align: center;
+}
+
+#NameInput {
+    margin-left: 34px;
+}
+#CnpjInput {
+    margin-left: 35.5px;
+}
+#AddressInput {
+    margin-left: 5px;
+}
+
+.DadosDistribuidorDiv {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: #303030 0px 0px 10px 0px;
+    max-width: 750px;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    border: solid 1px rgba(236, 236, 236, 0.2);
+    width: auto;
+    height: auto;
+    display: grid;
+}
+
+.DadosDistribuidorDiv h3 {
+    text-align: center;
+}
+
+#DistributorNameInput {
+    margin-left: 34px;
+}
+
+#DistributorCnpjInput {
+    margin-left: 35.5px;
+}
+
+.DadosTransportadorDiv {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: #303030 0px 0px 10px 0px;
+    max-width: 750px;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    border: solid 1px rgba(236, 236, 236, 0.2);
+    width: auto;
+    height: auto;
+    display: grid;
+}
+
+.DadosTransportadorDiv h3 {
+    text-align: center;
+}
+
+#TransporterCNPJInput {
+    margin-left: 35.5px;
+}
+
+#TransporterDriverInput {
+    margin-left: 6px;
+}
+
+#TransporterPlateInput {
+    margin-left: 35.5px;
+}
+
+/* Alguns dos <styles> das Notas estão no HTML */
+.DadosNotaDiv {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: #303030 0px 0px 10px 0px;
+    max-width: 750px;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    border: solid 1px rgba(236, 236, 236, 0.2);
+    width: auto;
+    height: auto;
+    display: grid;
+}
+
+.DadosNotaDiv h3 {
+    text-align: center;
+}
+
+#PostoImage {
+    margin-left: 5%;
+}
+
+#DistributorImage {
+    margin-left: 5%;
+}
+
+#TransporterImage {
+    margin-left: 5%;
+}
+
+#NoteImage {
+    margin-left: 5%;
+}
+
+@media screen and (max-width: 600px) {
+     body {
+        height: 145vh;
+     }
+}
+
+.AnaliseMainDiv {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: #303030 0px 0px 10px 0px;
+    max-width: 750px;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    border: solid 1px rgba(236, 236, 236, 0.2);
+    width: auto;
+    height: auto;
+    display: grid;
+}
+
+.AnaliseMainDiv strong {
+    text-align: center;
+}
+
+.AnaliseMainDiv input {
+    max-width: 280px;
+    max-height: 20px;
+    height: 20px;
+    width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+    align-self: center;
+    text-align: center;
+}
+
+.AnaliseDensityInput {
+    max-height: 20px;
+    height: 20px;
+    max-width: 280px;
+    width: 280px;
+}
+
+.AnaliseOutputText {
+    text-align: center;
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.AnaliseImg {
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 30px;
+    margin-top: -40px;
+}
+
+.AnaliseTitle {
+    text-align: center;
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+select {
+    background-image: linear-gradient(to top, rgb(200,200,200), rgb(255,255,255));
+    align-content: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+select,
+::picker(select) {
+  appearance: base-select; /* Use the default appearance for the platform */
+  border-radius: 0px;
+  width: 110px;
+}
+
+select::picker-icon {
+    transform: rotate(90deg);
+}
+
+select:open::picker-icon {
+    transform: rotate(0deg);
+}
+
+select option {
+    color: black;
+    appearance: none; /* Hide default arrow and styling */
+    -webkit-appearance: none; /* For older WebKit browsers */
+    -ms-progress-appearance: none; /* For Internet Explorer */
+    -moz-appearance: none; /* For Firefox */
 }

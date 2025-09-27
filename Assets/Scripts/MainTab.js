@@ -3,6 +3,13 @@ const myElements = document.getElementsByClassName("TankItemMainDiv");
 
 const { PDFDocument, StandardFonts, rgb } = PDFLib; 
 
+const CurDate = new Date();
+const year = CurDate.getFullYear();
+const month = CurDate.getMonth() + 1; // Add 1 because getMonth() is 0-indexed
+const day = CurDate.getDate();
+const FormattedDateBr = `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${year}`;
+console.log(FormattedDateBr);
+
 const Translations = {
     "gasoline":"Gasolina",
     "gasolina":"Gasolina",
@@ -63,7 +70,7 @@ let DadosSalvos = {
     },
     "Nota":{
         "Numero":"",
-        "Produto":"",
+        "Produto":"Gasolina",
         "Quantidade":"",
     },
     "Analise":{
@@ -71,8 +78,14 @@ let DadosSalvos = {
         "Densidade":"",
         "PercentualDeEtanol":"",
         "Teor":"",
+        "Produto":"Gasolina",
     }
 }
+
+DadosDiv.hidden = false;
+AnaliseDiv.hidden = false;
+
+AnaliseDiv.style.visibility = "hidden";
 
 GoToAnaliseButton.addEventListener("click",function(ev){
     DadosSalvos.Posto.Nome = document.getElementById("NameInput").value;
@@ -88,16 +101,18 @@ GoToAnaliseButton.addEventListener("click",function(ev){
     DadosSalvos.Transportador.Placa = document.getElementById("TransporterPlateInput").value;
 
     DadosSalvos.Nota.Numero = document.getElementById("NoteNumberInput").value;
-    DadosSalvos.Nota.Produto = document.getElementById("NoteProductInput").value;
+    // DadosSalvos.Nota.Produto = document.getElementById("NoteProductInput").value;
     DadosSalvos.Nota.Quantidade = document.getElementById("NoteVolumeInput").value;
 
+    DadosDiv.style.visibility = "hidden";
     DadosDiv.hidden = true;
-    AnaliseDiv.hidden = false;
+    AnaliseDiv.style.visibility = "";
 });
 
 const AnaliseProductInput = document.getElementById("AnaliseProductInput");
     
 AnaliseProductInput.addEventListener("change",function(ev){ 
+    DadosSalvos.Analise.Produto = Translations[AnaliseProductInput.value] ? Translations[AnaliseProductInput.value] : String(AnaliseProductInput.value);
     if(AnaliseProductInput.value === "gasoline"){
         AnalisePHInputText.hidden = false;
         AnalisePHInput.hidden = false;
@@ -108,27 +123,27 @@ AnaliseProductInput.addEventListener("change",function(ev){
 })
 
 GeneratePdfButton.addEventListener("click",async function(ev){
-    console.log(DadosSalvos);
+    /*console.log(DadosSalvos);
     if(!LastAnaliseWasValid){
         alert("Não pode gerar PDF para analises inválidas.")
         return;
-    }
+    }*/
     // Valeu GPT!
-    const urlDoPDF = "../Assets/Template_Pdf.pdf";
+    const urlDoPDF = "../Assets/Pdf_Template.pdf";
     // Carrega PDF existente (template)
     const existingPdfBytes = await fetch(urlDoPDF).then(res => res.arrayBuffer());
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
     const pages = pdfDoc.getPages();
     const primeiraPagina = pages[0]; 
-    pdfDoc.removePage(1);
+    //pdfDoc.removePage(1);
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
     // Desenha o valor no lugar do placeholder
     try{
         primeiraPagina.drawText(DadosSalvos.Nota.Quantidade, { // quantidade
         x: 147,
-        y: 504,
+        y: 504+50,
         size: 13,
         font,
         color: PDFLib.rgb(0, 0, 0)
@@ -257,10 +272,19 @@ GeneratePdfButton.addEventListener("click",async function(ev){
         alert(toString(e));
     }
 
-    const pdfBytes = await pdfDoc.save();
+    const pdfBytes = await pdfDoc.save("1");
     const blob = new Blob([pdfBytes], { type: "application/pdf" });
     const url = URL.createObjectURL(blob);
-    window.open(url);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${FormattedDateBr}-${String(DadosSalvos.Analise.Produto)}-MEASURER.pdf` //FormattedDateBr+"-"+DadosSalvos.Analise.Produto+".pdf"; // <-- aqui define o nome do arquivo
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    
+    //window.open(url);
 })
     
 ConfirmAnaliseButton.addEventListener("click",function(ev){
@@ -279,7 +303,6 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
     const temp=parseFloat(document.getElementById('AnaliseTemperatureInput').value);
     const dens=parseFloat(document.getElementById('AnaliseDensityInput').value);
     let teorValue = null;
-
 
     LastAnaliseWasValid = false;
 
@@ -1292,9 +1315,9 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
 
             textOutputAnalise.innerHTML = teor;
         }else{
-            if(type == 'gasolina'){
+            if(type === 'gasoline'){
                 etanolOrPhText = "Etanol";
-                if(ph>31 || ph<29){
+                if( !(ph>28 && ph<32) ){
                     ok = false;
                 }
             }
@@ -1334,5 +1357,4 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
     DadosSalvos.Analise.Densidade = dens ? String(dens) : "N/A";
     DadosSalvos.Analise.PercentualDeEtanol = ph ? String(ph) : "N/A";
     DadosSalvos.Analise.Teor = teorValue ? String(teorValue) : "N/A";
-
 }); 

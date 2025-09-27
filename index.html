@@ -13,12 +13,8 @@
     
     <div class="MainDiv">
         <div class="Logo">
-            <img class="Logo1" src="Assets/Images/Logo.svg">
+            <img style="margin-top: 0px;" class="Logo1" src="Assets/Images/Logo.png">
         </div>
-
-        <!--<div class="Icon">
-            <img class="Icon1" src="Assets/Images/Icone.svg">
-        </div>-->
 
         <div class="Icon">
 
@@ -26,16 +22,24 @@
     
         <div class="InputSectionDiv">
             <div class="InputArea">
-                <div class="PostoInputDiv">
-                    <p class="PostoTexto" id="PostoTexto">⛽Posto:</p> <select class="PostoInput" name="PostoInput">
-                        <option value="salto">Salto</option>
+                <div class="PostoInputDiv" hidden>
+                    <p hidden class="PostoTexto" id="PostoTexto">⛽Posto:</p> <select hidden class="PostoInput" name="PostoInput">
+                        <option hidden value="Teste">Teste</option>
                     </select>
                 </div>
          
                 <div id="ConfirmButtonDiv" class="ConfirmButtonDiv">
                     <a href="Medicao">
                         <button id="ConfirmButton" class="ConfirmButton">
-                        <img id="ConfirmButtonImage" class="ConfirmButtonImage" src="https://cdn-icons-png.flaticon.com/512/5974/5974759.png">
+                        <h1 class="ConfirmButtonTextH1">Teste Gratuito</h1>
+                        </button>                     
+                    </a>
+                </div>
+
+                <div id="ConfirmButtonDiv2" class="ConfirmButtonDiv2">
+                    <a>
+                        <button id="ConfirmButton2" class="ConfirmButton2">
+                        <h1 class="ConfirmButtonText2H1">Login</h1>
                         </button>                     
                     </a>
                 </div>
@@ -45,6 +49,9 @@
     </div>
 </body>
 
+<footer>
+    <p class="FooterText">Desenvolvido por Samuel Souza S. & Fernando Souza M. ©</p>
+</footer>
 
 <link id="MainCss" rel="stylesheet" href="Assets/Styles/initial_page.css">
 

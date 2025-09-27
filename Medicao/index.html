@@ -16,11 +16,11 @@
 
     <div class="DadosMainDiv" id="DadosMainDiv">
         <div>
-            <h3>Dados do posto:</h3>
-            <div style="display: flex; height:fit-content;">
-                <img src="../Icon.png" style="height: 120px;">
+            <div style="display: grid; height: 218px;" class="DadosPostoDiv">
+                <h3>Dados do posto</h3>
+                <img src="../Assets/Images/Generic/gas-pump.png" style="height: 120px;" id="PostoImage">
 
-                <div style="margin-left: 20px;">
+                <div class="DadosPostoInputs">
                     <div style="display: flex;">
                     <strong>Nome: </strong>
                     <input id="NameInput" type="text">
@@ -29,7 +29,7 @@
                     <br>
                     <div style="display: flex;">
                         <strong>CNPJ:</strong>
-                        <input id="CnpjInput" type="text">
+                        <input id="CnpjInput" type="number">
                     
                     </div>
                     <br>
@@ -42,11 +42,11 @@
                 </div>
             </div>
 
-            <h3>Dados do distribuidor:</h3>
-            <div style="display: flex; height:fit-content;">
-                <img src="../Assets/Images/PlataformaDePetroleo.png" style="height: 120px;">
+            <div style="display: grid; height: 218px;" class="DadosDistribuidorDiv">
+                <h3>Dados do distribuidor</h3>
+                <img src="../Assets/Images/Generic/oilrig_icon.png" style="height: 120px;" id="DistributorImage">
 
-                <div style="margin-left: 20px;">
+                <div class="DadosDistribuidorInputs">
                     <div style="display: flex;">
                         <strong>Nome: </strong>
                         <input id="DistributorNameInput" type="text">
@@ -55,7 +55,7 @@
 
                     <div style="display: flex;">
                         <strong>CNPJ:</strong>
-                        <input id="DistributorCnpjInput" type="text">
+                        <input id="DistributorCnpjInput" type="number">
                     </div>
                     <br>
                     
@@ -63,21 +63,21 @@
                 </div>
             </div>
 
-            <h3>Dados do transportador:</h3>
-            <div style="display: flex; height:fit-content;">
-                <img src="../Assets/Images/Truck.png" style="height: 120px;">
+            <div style="display: grid; height: 218px;" class="DadosTransportadorDiv">
+                <h3>Dados do transportador</h3>
+                <img src="../Assets/Images/Generic/FuelTruckIcon.png" style="height: 120px;" id="TransporterImage">
 
-                <div style="margin-left: 20px;">
+                <div class="DadosTransportadorInputs">
 
                     <div style="display: flex;">
                         <strong>Transportador:</strong>
-                        <input id="TransporterInput" type="text">
+                        <input id="TransporterInput" type="text" style="width: 134px;">
                     </div>
                     
                     <br>
                     <div style="display: flex;">
                         <strong>CNPJ:</strong>
-                        <input id="TransporterCNPJInput" type="text">
+                        <input id="TransporterCNPJInput" type="number">
                     </div>
                     
                     <br>
@@ -97,28 +97,22 @@
                 </div>
             </div>
 
-            <h3>Dados da nota:</h3>
-            <div style="display: flex; height:fit-content;">
-                <img src="../Assets/Images/NFE.png" style="height: 120px;">
+            <div style="display: grid; height: 218px;" class="DadosNotaDiv">
+                <h3>Dados da nota</h3>
+                <img src="../Assets/Images/Generic/PaperIcon.png" style="height: 120px;" id="NoteImage">
 
-                <div style="margin-left: 20px;">
+                <div class="DadosNotasInputs">
 
                     <div style="display: flex;">
-                        <strong>Número da Nota:</strong>
-                        <input id="NoteNumberInput" type="number">
-                    </div>
-                    
-                    <br>
-                    <div style="display: flex;">
-                        <strong>Produto:</strong>
-                        <input id="NoteProductInput" type="text">
+                        <strong>Nº da Nota:</strong>
+                        <input id="NoteNumberInput" type="number" style="width: 160px;">
                     </div>
                     
                     <br>
 
                     <div style="display: flex;">
-                        <strong>Volume:</strong>
-                        <input id="NoteVolumeInput" type="text">
+                        <strong>Quantidade:</strong>
+                        <input id="NoteVolumeInput" type="number" style="width: 152px;">
                     </div>
 
                     <br>
@@ -126,40 +120,42 @@
             </div>
 
             <button class="ConfirmButton" id="GoToAnalise">
-                <p class="ConfirmButtonText">Confirmar ✅</p>
+                <p class="ConfirmButtonText">Salvar</p>
             </button>
             
         </div>
     </div>
     
-    <div class="AnaliseMainDiv" id="AnaliseMainDiv" style="height: 120vh; width: 100vw;"  hidden>
+    <div class="AnaliseMainDiv" id="AnaliseMainDiv" style="height: fit-content; width: 100vw;">
+        <h2 class="AnaliseTitle">Análise do Combustível</h2>
+        <br>
         <div>
-            <div style="display: flex; height:fit-content;">
-                <img src="../Assets/Images/Generic/Lab.png" style="height: 120px;">
+            <div style="display: grid; height:fit-content;">
+                <img src="../Assets/Images/Generic/Erlenmeyer_Flask_Icon.png" style="height: 120px;" class="AnaliseImg">
 
                 <div>
-                    <div style="display: flex;">
+                    <div style="display: grid;">
                         <strong>Tipo de Combustível: </strong>
-                        <select class="AnaliseProductInput" id="AnaliseProductInput" style="height: 20px; align-self: center;">
+                        <select class="AnaliseProductInput" id="AnaliseProductInput" style="height: 25px; align-self: center;">
                             <option style="background-color: #f99999; cursor: pointer;" value="gasoline">Gasolina</option>
                             <option style="background-color: #6ac353; cursor: pointer;" value="etanol">Etanol</option>
                             <option style="background-color: #5f5e5e; cursor: pointer;" value="diesel">Diesel</option>
                         </select>
                     </div>
                     <br>
-                    <div id="AnalisePHInputArea" style="display: flex; margin-left: 20px;">
+                    <div id="AnalisePHInputArea" style="display: grid; margin-left: 20px;">
                         <strong id="AnalisePHInputText"><strong>%</strong> de Etanol: </strong>
                         <input id="AnalisePHInput" type="number">
                     </div>
                     <br>
-                    <div style="display: flex; margin-left: 20px;">
+                    <div style="display: grid; margin-left: 20px;">
                         <strong>Temperatura (°C): </strong>
                         <input style="height: 20px; align-self: center;" id="AnaliseTemperatureInput" type="number">
                     </div>
                     <br>
-                    <div style="display: flex;">
+                    <div style="display: grid; margin-left: 20px;">
                         <strong>Densidade (g/cm³): </strong>
-                        <input style="height: 20px; align-self: center;" id="AnaliseDensityInput" type="number">
+                        <input style="height: 20px;" id="AnaliseDensityInput" type="number">
                     </div>
                 </div>
             </div>
@@ -172,7 +168,6 @@
         <div>
             <button id="ConfirmAnaliseButton" class="ConfirmButton">
                 <p class="ConfirmButtonText">Analisar</p>
-                <!--<img id="ConfirmButtonImage" src="../Assets/Images/Generic/MagnifyingGlass.png">-->
             </button>
         </div>
         <br>
