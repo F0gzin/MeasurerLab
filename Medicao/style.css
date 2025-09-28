@@ -2,7 +2,7 @@
     display: block;
     justify-content: normal;
     align-items: normal;
-    height: 190vh;
+    height: 125vh;
     margin: 0;
     background: linear-gradient(lightblue, darkcyan);
     background-size: 100%;
@@ -441,7 +441,7 @@ input {
     border: solid 1px rgba(236, 236, 236, 0.2);
     width: auto;
     height: auto;
-    display: grid;
+    display: none;
 }
 
 .AnaliseMainDiv strong {

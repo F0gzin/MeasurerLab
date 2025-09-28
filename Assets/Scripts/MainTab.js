@@ -52,6 +52,8 @@ const AnalisePHInputText = document.getElementById("AnalisePHInputText");
 const AnalisePHInputArea = document.getElementById("AnalisePHInputArea");
 const AnalisePHInput = document.getElementById("AnalisePHInput");
 
+const GoBackButton = document.getElementById("GoBackToMenu");
+
 let DadosSalvos = {
     "Posto":{
         "Nome":"",
@@ -84,7 +86,7 @@ let DadosSalvos = {
 
 DadosDiv.hidden = false;
 AnaliseDiv.hidden = false;
-
+AnaliseDiv.style.display = "none";
 AnaliseDiv.style.visibility = "hidden";
 
 GoToAnaliseButton.addEventListener("click",function(ev){
@@ -106,8 +108,16 @@ GoToAnaliseButton.addEventListener("click",function(ev){
 
     DadosDiv.style.visibility = "hidden";
     DadosDiv.hidden = true;
-    AnaliseDiv.style.visibility = "";
+    AnaliseDiv.style.visibility = "visible";
+    AnaliseDiv.style.display = "block";
 });
+
+GoBackButton.addEventListener("click",function(ev){
+    console.log("Going back wow");
+    let A = document.createElement("a");
+    A.href = "..";
+    A.click();
+})
 
 const AnaliseProductInput = document.getElementById("AnaliseProductInput");
     
@@ -116,9 +126,11 @@ AnaliseProductInput.addEventListener("change",function(ev){
     if(AnaliseProductInput.value === "gasoline"){
         AnalisePHInputText.hidden = false;
         AnalisePHInput.hidden = false;
+        AnaliseDiv.style.display = "block";
     }else{
         AnalisePHInput.hidden = true;
         AnalisePHInputText.hidden = true;
+        AnaliseDiv.style.display = "none";
     }
 })
 
@@ -327,7 +339,6 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
         if (type == 'etanol') {
             if(isNaN(ph)){
                 window.alert("⚠️Por favor, insira um valor válido de pH⚠️");
-                
                 return
             }
             const densStr = dens.toFixed(4);
