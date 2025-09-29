@@ -126,11 +126,9 @@ AnaliseProductInput.addEventListener("change",function(ev){
     if(AnaliseProductInput.value === "gasoline"){
         AnalisePHInputText.hidden = false;
         AnalisePHInput.hidden = false;
-        AnaliseDiv.style.display = "block";
     }else{
         AnalisePHInput.hidden = true;
         AnalisePHInputText.hidden = true;
-        AnaliseDiv.style.display = "none";
     }
 })
 
@@ -151,131 +149,134 @@ GeneratePdfButton.addEventListener("click",async function(ev){
     //pdfDoc.removePage(1);
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
+    let offsetX = -10;
+    let offsetY = 100;
+
     // Desenha o valor no lugar do placeholder
     try{
-        primeiraPagina.drawText(DadosSalvos.Nota.Quantidade, { // quantidade
-        x: 147,
-        y: 504+50,
+        primeiraPagina.drawText(DadosSalvos.Nota.Numero, { // número 
+        x: 147+offsetX,
+        y: 504+50+offsetY-2,
+        size: 13,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+
+    primeiraPagina.drawText(DadosSalvos.Nota.Quantidade, { // quantidade
+        x: 147+offsetX,
+        y: 521+offsetY-2,
         size: 13,
         font,
         color: PDFLib.rgb(0, 0, 0)
     });
 
     primeiraPagina.drawText(DadosSalvos.Nota.Produto, { // produto
-        x: 147,
-        y: 521,
-        size: 13,
-        font,
-        color: PDFLib.rgb(0, 0, 0)
-    });
-
-    primeiraPagina.drawText(DadosSalvos.Nota.Numero, { // número da nota
-        x: 180,
-        y: 521+18,
+        x: 180+offsetX,
+        y: 521+18+offsetY-2,
         size: 13,
         font,
         color: PDFLib.rgb(0, 0, 0)
     });
 
     primeiraPagina.drawText(DadosSalvos.Distribuidor.Nome, { // distribuidor
-        x: 147,
-        y: 442,
+        x: 147+offsetX,
+        y: 442+offsetY+3,
         size: 13,
         font,
         color: PDFLib.rgb(0, 0, 0)
     });
 
     primeiraPagina.drawText(DadosSalvos.Transportador.Transportador, { // Transportador
-        x: 156,
-        y: 424,
+        x: 156+offsetX,
+        y: 424+offsetY+3,
         size: 13,
         font,
         color: PDFLib.rgb(0, 0, 0)
     });
 
     primeiraPagina.drawText(DadosSalvos.Transportador.Motorista, { // Motorista
-        x: 130,
-        y: 409,
+        x: 130+offsetX,
+        y: 409+offsetY+3,
         size: 13,
         font,
         color: PDFLib.rgb(0, 0, 0)
     });
 
     primeiraPagina.drawText(DadosSalvos.Distribuidor.CNPJ, { // CNPJ distribuidor
-        x: 340,
-        y: 442,
+        x: 340+offsetX,
+        y: 442+offsetY+3,
         size: 13,
         font,
         color: PDFLib.rgb(0, 0, 0)
     });
 
     primeiraPagina.drawText(DadosSalvos.Transportador.CNPJ, { // CNPJ Transportador
-        x: 340,
-        y: 424,
+        x: 340+offsetX,
+        y: 424+offsetY+3,
         size: 13,
         font,
         color: PDFLib.rgb(0, 0, 0)
     });
 
     primeiraPagina.drawText(DadosSalvos.Transportador.Placa, { // Placa
-        x: 340,
-        y: 409,
+        x: 340+offsetX,
+        y: 409+offsetY+3,
         size: 13,
         font,
         color: PDFLib.rgb(0, 0, 0)
     });
 
     primeiraPagina.drawText(DadosSalvos.Posto.Nome, { // Posto Nome
-        x: 156,
-        y: 345,
+        x: 156+offsetX,
+        y: 345+offsetY,
         size: 13,
         font,
         color: PDFLib.rgb(0, 0, 0)
     });
 
     primeiraPagina.drawText(DadosSalvos.Posto.CNPJ, { // Posto CNPJ
-        x: 156,
-        y: 330,
+        x: 156+offsetX,
+        y: 330+offsetY,
         size: 13,
         font,
         color: PDFLib.rgb(0, 0, 0)
     });
 
     primeiraPagina.drawText(DadosSalvos.Posto.Endereco, { // Posto Endereço
-        x: 156,
-        y: 315,
+        x: 156+offsetX,
+        y: 315+offsetY,
         size: 13,
         font,
         color: PDFLib.rgb(0, 0, 0)
     });
 
     primeiraPagina.drawText(DadosSalvos.Analise.Temperatura, { // Temperatura
-        x: 350,
-        y: 247,
+        x: 350+offsetX,
+        y: 247+offsetY+15,
         size: 12,
         font,
         color: PDFLib.rgb(0, 0, 0)
     });
 
     primeiraPagina.drawText(DadosSalvos.Analise.Densidade, { // Densidade
-        x: 350,
-        y: 247-(20*1),
+        x: 350+offsetX,
+        y: 247-(20*1)+offsetY+15,
         size: 12,
         font,
         color: PDFLib.rgb(0, 0, 0)
     });
 
     primeiraPagina.drawText(DadosSalvos.Analise.PercentualDeEtanol, { // Percentual de Etanol
-        x: 350,
-        y: 247-(20*2),
+        x: 350+offsetX,
+        y: 247-(20*2)+offsetY+15,
         size: 12,
         font,
         color: PDFLib.rgb(0, 0, 0)
     });
 
     primeiraPagina.drawText(DadosSalvos.Analise.Teor, { // Teor
-        x: 350,
-        y: 247-(20*4)+5,
+        x: 350+offsetX,
+        y: 247-(20*4)+5+offsetY+15,
         size: 12,
         font,
         color: PDFLib.rgb(0, 0, 0)
