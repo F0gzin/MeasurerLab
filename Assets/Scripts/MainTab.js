@@ -76,6 +76,7 @@ let DadosSalvos = {
         "Quantidade":"",
     },
     "Analise":{
+        "MassaEspecifica":"",
         "Temperatura":"",
         "Densidade":"",
         "PercentualDeEtanol":"",
@@ -122,6 +123,7 @@ GoBackButton.addEventListener("click",function(ev){
 const AnaliseProductInput = document.getElementById("AnaliseProductInput");
     
 AnaliseProductInput.addEventListener("change",function(ev){ 
+    console.log(Translations[AnaliseProductInput.value]);
     DadosSalvos.Analise.Produto = Translations[AnaliseProductInput.value] ? Translations[AnaliseProductInput.value] : String(AnaliseProductInput.value);
     if(AnaliseProductInput.value === "gasoline"){
         AnalisePHInputText.hidden = false;
@@ -170,8 +172,8 @@ GeneratePdfButton.addEventListener("click",async function(ev){
         color: PDFLib.rgb(0, 0, 0)
     });
 
-    primeiraPagina.drawText(DadosSalvos.Nota.Produto, { // produto
-        x: 180+offsetX,
+    primeiraPagina.drawText(DadosSalvos.Analise.Produto, { // produto
+        x: 147+offsetX,
         y: 521+18+offsetY-2,
         size: 13,
         font,
@@ -195,7 +197,7 @@ GeneratePdfButton.addEventListener("click",async function(ev){
     });
 
     primeiraPagina.drawText(DadosSalvos.Transportador.Motorista, { // Motorista
-        x: 130+offsetX,
+        x: 147+offsetX,
         y: 409+offsetY+3,
         size: 13,
         font,
@@ -281,6 +283,15 @@ GeneratePdfButton.addEventListener("click",async function(ev){
         font,
         color: PDFLib.rgb(0, 0, 0)
     });
+
+    primeiraPagina.drawText(DadosSalvos.Analise.MassaEspecifica, { // Massa especifica
+        x: 350+offsetX,
+        y: 247-(20*5)+5+offsetY+15,
+        size: 12,
+        font,
+        color: PDFLib.rgb(0, 0, 0)
+    });
+
     }catch(e){
         alert(toString(e));
     }
@@ -300,6 +311,11 @@ GeneratePdfButton.addEventListener("click",async function(ev){
     //window.open(url);
 })
     
+function corrigirDensidade(densidadeObs, tempObs, alpha, tempRef = 20) {
+  const fator = 1 + alpha * (tempObs - tempRef);
+  return densidadeObs / fator;
+}
+
 ConfirmAnaliseButton.addEventListener("click",function(ev){
     
     // ANP density tables
@@ -311,11 +327,18 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
 
     // calculus :)
 
+    const alphaTable = {
+        "gasoline":0.00120,
+        "etanol":0.00109,
+        "diesel":0.00083,
+    };
+
     const ph = AnalisePHInput.value;
     const type=AnaliseProductInput.value;
     const temp=parseFloat(document.getElementById('AnaliseTemperatureInput').value);
     const dens=parseFloat(document.getElementById('AnaliseDensityInput').value);
-    let teorValue = null;
+    let massa = undefined;
+    let teorValue = undefined;
 
     LastAnaliseWasValid = false;
 
@@ -336,6 +359,8 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
 
         let etanolOrPhText = "pH";
 
+        let alpha = alphaTable[type];
+        massa = corrigirDensidade(dens,temp,alpha);
 
         if (type == 'etanol') {
             if(isNaN(ph)){
@@ -1339,7 +1364,7 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
         <p>Tipo: ${TipoTraduzido}</p>
         <p>Temperatura: ${temp}°C</p>
         <p>Densidade: ${dens}g/cm³</p>    
-        
+        <p>Massa Específica: ${massa ? massa.toFixed(4) : "N/A"}</p>
         `
         if(type=="etanol"){
             teor = teor + `<p>${teorValue} % °INPM<p>`;
@@ -1349,7 +1374,8 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
         teor = teor + `<br><h4>Referência ANP:</h4>
         <p>Temp Referencia: ${temp}°C</p>
         <p>Densidade Min: ${ref.min}</p>
-        <p>Densidade Max: ${ref.max}</p>`;
+        <p>Densidade Max: ${ref.max}</p>
+        `;
 
         if(type=="gasolina"){
             teor = teor + `<p>%Etanol: 29-31%</p>`;
@@ -1363,8 +1389,9 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
         window.alert("⚠️Por favor, insira valores válidos.⚠️");
     }
 
+    console.log(massa);
 
-
+    DadosSalvos.Analise.MassaEspecifica = massa ? massa.toFixed(4) : "N/A";
     DadosSalvos.Analise.Temperatura = temp ? String(temp) : "N/A";
     DadosSalvos.Analise.Densidade = dens ? String(dens) : "N/A";
     DadosSalvos.Analise.PercentualDeEtanol = ph ? String(ph) : "N/A";
