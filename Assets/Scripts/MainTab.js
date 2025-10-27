@@ -302,7 +302,7 @@ GeneratePdfButton.addEventListener("click",async function(ev){
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${FormattedDateBr}-${String(DadosSalvos.Analise.Produto)}-MEASURER.pdf` //FormattedDateBr+"-"+DadosSalvos.Analise.Produto+".pdf"; // <-- aqui define o nome do arquivo
+    a.download = `${FormattedDateBr}-${String(DadosSalvos.Analise.Produto)}.pdf` //FormattedDateBr+"-"+DadosSalvos.Analise.Produto+".pdf"; // <-- aqui define o nome do arquivo
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -336,7 +336,11 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
     const ph = AnalisePHInput.value;
     const type=AnaliseProductInput.value;
     const temp=parseFloat(document.getElementById('AnaliseTemperatureInput').value);
-    const dens=parseFloat(document.getElementById('AnaliseDensityInput').value);
+    let dens=parseFloat(document.getElementById('AnaliseDensityInput').value);
+    if(dens && dens>0){
+        dens = "0."+String(dens);
+        dens = parseFloat(dens);
+    }
     let massa = undefined;
     let teorValue = undefined;
 
@@ -1364,10 +1368,10 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
         <p>Tipo: ${TipoTraduzido}</p>
         <p>Temperatura: ${temp}°C</p>
         <p>Densidade: ${dens}g/cm³</p>    
-        <p>Massa Específica: ${massa ? massa.toFixed(4) : "N/A"}</p>
+        <p>Massa Específica: ${massa ? (massa*1000).toFixed(1) : "N/A"}</p>
         `
         if(type=="etanol"){
-            teor = teor + `<p>${teorValue} % °INPM<p>`;
+            teor = teor + `<p>Teor Alcoólico: ${teorValue} % °INPM<p>`;
             // teor = teor + `<p>%${etanolOrPhText}: ${ph}%</p>`;
         }
 
@@ -1391,7 +1395,7 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
 
     console.log(massa);
 
-    DadosSalvos.Analise.MassaEspecifica = massa ? massa.toFixed(4) : "N/A";
+    DadosSalvos.Analise.MassaEspecifica = massa ? massa.toFixed(1) : "N/A";
     DadosSalvos.Analise.Temperatura = temp ? String(temp) : "N/A";
     DadosSalvos.Analise.Densidade = dens ? String(dens) : "N/A";
     DadosSalvos.Analise.PercentualDeEtanol = ph ? String(ph) : "N/A";
