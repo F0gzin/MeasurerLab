@@ -10,6 +10,11 @@ const day = CurDate.getDate();
 const FormattedDateBr = `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${year}`;
 console.log(FormattedDateBr);
 
+const params = new URLSearchParams(window.location.search);
+const nomeDoPosto = params.get("posto");
+
+console.log(nomeDoPosto);
+
 const Translations = {
     "gasoline":"Gasolina",
     "gasolina":"Gasolina",
@@ -51,8 +56,25 @@ const textOutputAnalise = document.getElementById("AnaliseOutputText");
 const AnalisePHInputText = document.getElementById("AnalisePHInputText");
 const AnalisePHInputArea = document.getElementById("AnalisePHInputArea");
 const AnalisePHInput = document.getElementById("AnalisePHInput");
-
 const GoBackButton = document.getElementById("GoBackToMenu");
+
+const NameInput = document.getElementById("NameInput");
+const CnpjInput = document.getElementById("CnpjInput");
+const AddressInput = document.getElementById("AddressInput");
+
+const requirePromise = import("../PostosInformacoes.js");
+const postosData = await requirePromise;
+console.log(postosData);
+
+if(postosData.data  [nomeDoPosto]){
+    let posto = postosData.data[nomeDoPosto];
+    NameInput.value = posto.name;
+    CnpjInput.value = posto.cnpj;
+    AddressInput.value = posto.address;
+    
+}else{
+    alert("Posto inválido: \""+String(nomeDoPosto)+"\"");
+}
 
 let DadosSalvos = {
     "Posto":{
@@ -155,10 +177,11 @@ GeneratePdfButton.addEventListener("click",async function(ev){
     let offsetY = 100;
 
     // Desenha o valor no lugar do placeholder
+    console.log(DadosSalvos);
     try{
         primeiraPagina.drawText(DadosSalvos.Nota.Numero, { // número 
         x: 147+offsetX,
-        y: 504+50+offsetY-2,
+        y: 504+50+offsetY-5,
         size: 13,
         font,
         color: PDFLib.rgb(0, 0, 0)
@@ -166,7 +189,7 @@ GeneratePdfButton.addEventListener("click",async function(ev){
 
     primeiraPagina.drawText(DadosSalvos.Nota.Quantidade, { // quantidade
         x: 147+offsetX,
-        y: 521+offsetY-2,
+        y: 521+offsetY-5,
         size: 13,
         font,
         color: PDFLib.rgb(0, 0, 0)
@@ -174,7 +197,7 @@ GeneratePdfButton.addEventListener("click",async function(ev){
 
     primeiraPagina.drawText(DadosSalvos.Analise.Produto, { // produto
         x: 147+offsetX,
-        y: 521+18+offsetY-2,
+        y: 521+18+offsetY-5,
         size: 13,
         font,
         color: PDFLib.rgb(0, 0, 0)
@@ -260,7 +283,7 @@ GeneratePdfButton.addEventListener("click",async function(ev){
         color: PDFLib.rgb(0, 0, 0)
     });
 
-    primeiraPagina.drawText(DadosSalvos.Analise.Densidade, { // Densidade
+    primeiraPagina.drawText(String((DadosSalvos.Analise.Densidade).toFixed(3)), { // Densidade
         x: 350+offsetX,
         y: 247-(20*1)+offsetY+15,
         size: 12,
@@ -284,7 +307,7 @@ GeneratePdfButton.addEventListener("click",async function(ev){
         color: PDFLib.rgb(0, 0, 0)
     });
 
-    primeiraPagina.drawText(DadosSalvos.Analise.MassaEspecifica, { // Massa especifica
+    primeiraPagina.drawText(String((DadosSalvos.Analise.MassaEspecifica*1000).toFixed(1)), { // Massa especifica
         x: 350+offsetX,
         y: 247-(20*5)+5+offsetY+15,
         size: 12,
@@ -293,7 +316,7 @@ GeneratePdfButton.addEventListener("click",async function(ev){
     });
 
     }catch(e){
-        alert(toString(e));
+        alert("❌⚠️Error:"+String(e));
     }
 
     const pdfBytes = await pdfDoc.save("1");
@@ -328,16 +351,16 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
     // calculus :)
 
     const alphaTable = {
-        "gasoline":0.00120,
-        "etanol":0.00109,
-        "diesel":0.00083,
+        "gasoline": 0.00120,
+        "etanol"  : 0.00109,
+        "diesel"  : 0.00083,
     };
 
     const ph = AnalisePHInput.value;
     const type=AnaliseProductInput.value;
     const temp=parseFloat(document.getElementById('AnaliseTemperatureInput').value);
     let dens=parseFloat(document.getElementById('AnaliseDensityInput').value);
-    if(dens && dens>0){
+    if(dens && dens>=1){
         dens = "0."+String(dens);
         dens = parseFloat(dens);
     }
@@ -1367,7 +1390,7 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
         teor = teor + `<h4>Dados Informados:</h4>
         <p>Tipo: ${TipoTraduzido}</p>
         <p>Temperatura: ${temp}°C</p>
-        <p>Densidade: ${dens}g/cm³</p>    
+        <p>Densidade: ${dens.toFixed(3)}g/cm³</p>    
         <p>Massa Específica: ${massa ? (massa*1000).toFixed(1) : "N/A"}</p>
         `
         if(type=="etanol"){
@@ -1390,14 +1413,14 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
             LastAnaliseWasValid = true;
         }
     }else{
-        window.alert("⚠️Por favor, insira valores válidos.⚠️");
+        window.alert("⚠️ Por favor, insira valores válidos. ⚠️");
     }
 
     console.log(massa);
 
-    DadosSalvos.Analise.MassaEspecifica = massa ? massa.toFixed(1) : "N/A";
+    DadosSalvos.Analise.MassaEspecifica = massa ? massa : "N/A";
     DadosSalvos.Analise.Temperatura = temp ? String(temp) : "N/A";
-    DadosSalvos.Analise.Densidade = dens ? String(dens) : "N/A";
+    DadosSalvos.Analise.Densidade = dens ? dens : "N/A";
     DadosSalvos.Analise.PercentualDeEtanol = ph ? String(ph) : "N/A";
     DadosSalvos.Analise.Teor = teorValue ? String(teorValue) : "N/A";
 }); 

@@ -1,20 +1,23 @@
 body {
-    display:flexbox;
-    justify-content: normal;
-    align-items: normal;
-    height: 100vh;
-    margin: 0;
+    display: block;
+    position: absolute;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin: 0px;
+    height: 74vh;
+    width: 100%;
+    margin-top: 0px;
     background-color: #ffffff;
     overflow-y: scroll;
     font-family: Arial, Helvetica, sans-serif;
     background-image: url("../Images/Backgrounds/gas3.png");
-    background-repeat: space;
-    background-size: cover;
+    background-size:100%;
 }
 
 .Logo {
     width: 100%;
-    height: 120px;
+    height: 100px;
     display: grid;
     justify-content: center;
     margin-top: 10%;
@@ -78,7 +81,7 @@ body {
     width: 100%;
     justify-content: center;
     align-content: center;
-    bottom: 200px;
+    margin-top: 30px;
 }
 
 .Icon {
@@ -101,8 +104,9 @@ a, a:visited, a:hover, a:active {
     color: inherit;
 }
 
-#ConfirmButtonDiv {
+.ConfirmButtonDiv {
     width: 100%;
+    height: 60px;
     display: flex;
     align-content: center;
     justify-content: center;
@@ -113,7 +117,7 @@ a, a:visited, a:hover, a:active {
     background: linear-gradient(145deg, #d9d9d9, #a6a6a6, #dddddd);
     backdrop-filter: blur(5px);
     color: #f0f0f0;
-    width: 300px;
+    width: 400px;
     height: 40px;
     margin-top: 80px;
     display: flex;
@@ -198,11 +202,12 @@ a, a:visited, a:hover, a:active {
 
 .ConfirmButtonTextH1 {
     text-align: center;
-    align-self: baseline;
+    align-self: center;
     font-weight: bold;
     font-family: Helvetica, sans-serif;
     text-decoration: none;
     margin-top: 2px;
+    height: auto;
 }
 
 .ConfirmButtonText2H1{
@@ -215,10 +220,15 @@ a, a:visited, a:hover, a:active {
     color: #303030;
 }
 
+#FooterArea{
+    margin-bottom: 0px;
+}
+
 .FooterText {
     color: whitesmoke;
     text-align: left;
     font-size: small;
+    margin-bottom: 0px;
 }
 
 @media screen and (max-width: 600px) {
