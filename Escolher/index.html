@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção de posto ⛽</title>
+    <link rel="icon" href="../Icon.png">
+</head>
+
+<body>
+    <audio id="AudioAlarm" src="../Assets/Scripts/MainTab.js">ALARM</audio>
+
+    <h1 class="JS_Required_Warning" id="JS_Required_Warning"><img style="width: 40px;" src="/Assets/Images/Generic/JavaScript.png">JavaScript deve estar ativado para o site funcionar.</h1>
+
+
+    <div class="DadosMainDiv" id="DadosMainDiv">
+        <button class="ConfirmButton" id="GoBackToMenu">
+            <p class="ConfirmButtonText"><a href="../">Voltar ao Menu</a></p>
+        </button>
+
+        <div>
+            
+            <div style="display: grid; height: 218px;" class="DadosPostoDiv">
+                <h2>Escolha o posto</h2>
+                <img src="../Assets/Images/Generic/gas-pump.png" style="height: 120px;" id="PostoImage">
+
+                <div class="DadosPostoInputs">
+                    <div style="display: flex;">
+                    <select id="SelecionarPostoDropdown">
+                        <option value="">-- Selecione um Posto --</option>
+                        <option value="SP0008914">AUTO POSTO CASA GRANDE LTDA</option>
+                        <option value="SP0031737">Posto de Serviços Normandi LTDA</option>
+                        <option value="SP0169199">Auto Posto Alameda Santos LTDA</option>
+                        <option value="SP0007600">Posto de Serviços Jardim América LTDA</option>
+                        <option value="SP0164203">Brilhante Auto Posto LTDA.</option>
+                    </select>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <h1 id="AvisoTexto" hidden style="color:red;text-align: center;">Por favor selecione um posto</h1>
+        <button class="ConfirmButton" id="ProgressButton">
+            <p class="ConfirmButtonText">Prosseguir</a></p>
+        </button>
+</body>
+
+<link id="MainCss" rel="stylesheet" href="style.css">
+
+<script hidden type="text/javascript">
+    const js_required_warning = document.getElementById("JS_Required_Warning");
+    js_required_warning.remove();
+</script>
+
+<script type="module" src="../Assets/Scripts/SelectScreen.js"></script>
+<!--<script type="text/javascript" src="../Assets/Scripts/CONVERT.js"></script> </html> -->
