@@ -1387,7 +1387,8 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
         }else{
             if(type === 'gasoline' || type=="gasoline_b"){
                 etanolOrPhText = "Etanol";
-                if( !(ph>28 && ph<32) ){
+                // percentual de etanol
+                if( !(ph>32+1 && ph<32-1) ){
                     ok = false;
                 }
             }

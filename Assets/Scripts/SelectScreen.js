@@ -5,11 +5,9 @@ confirmButton.addEventListener("click",(ev)=>{
     let selected = (dropDown.value);
     if(selected){
         let newA = document.createElement("a");
-        newA.href = "/MeasurerLab/Medicao?posto="+selected
+        newA.href = "/Medicao?posto="+selected
         newA.click()
     }else{
         textWarn.hidden = false;
     }
-
 })
-
