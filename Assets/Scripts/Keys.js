@@ -1,5 +1,5 @@
 const TABLE = {
-    1:"Salto00001"
+    1:"a"
 };
 
 export const Keys = TABLE;
