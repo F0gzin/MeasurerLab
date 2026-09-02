@@ -384,8 +384,8 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
         console.log(type);
         let TipoTraduzido = Translations[type];
         if(!TipoTraduzido){TipoTraduzido="?[COMBUSTÍVEL]?"}
-        if(ref==undefined){
-            // window.alert(`⚠️Referencias para a temperatura ${temp}°C não foram encontradas⚠️`);
+        if(!ref){
+            window.alert(`⚠️Referencias para a temperatura ${temp}°C não foram encontradas⚠️`);
             teor = `<span style="color:#E53E3E";>✖ Fora da medida</span>`;
 
             textOutputAnalise.innerHTML = teor; 
@@ -1381,23 +1381,24 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
                 teor = `<span style="color:${valid ? '#269f16ff' : '#E53E3E'};">(${valid ? '✔ Conforme!' : '✖ Fora da medida'})</span>`;
                 ok = ok && valid;
             } else {
-                //window.alert(`⚠️Não foram encontrados dados para a temperatura ${tempStr}°C e densidade ${densStr}(g/cm³)⚠️`);
+                window.alert(`⚠️Não foram encontrados dados para a temperatura ${tempStr}°C e densidade ${densStr}(g/cm³)⚠️`);
                 teor = `<span style="color:#E53E3E";>✖ Fora da medida</span>`;
                 ok = false;
             }
 
             textOutputAnalise.innerHTML = teor;
         }else{
+            console.warn(ok,ph);
             if(type === 'gasoline' || type=="gasoline_b"){
-                etanolOrPhText = "Etanol";
                 // percentual de etanol
-                if( !(ph>32+1 && ph<32-1) ){
+                etanolOrPhText = "Etanol";
+                if( (ph>(32+1) || ph<(32-1)) ){
                     ok = false;
                 }
             }else if(type === "gasoline_premium"){
-                etanolOrPhText = "Etanol";
                 // percentual de etanol
-                if( !(ph>25+1 && ph<25-1) ){
+                etanolOrPhText = "Etanol";
+                if( (ph>(25+1) || ph<(25-1)) ){
                     ok = false;
                 }
             }

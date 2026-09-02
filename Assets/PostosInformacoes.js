@@ -28,6 +28,12 @@ const data = {
         "cnpj"    : "54.474.804/0001-51",
         "address" : "AV. Aclimação, 613 - SP - CEP: 01531-000",
         "rede"    : "Rede Campeão",
+    },
+    "other":{
+        "name"    : null,
+        "cnpj"    : null,
+        "address" : null,
+        "rede"    : null
     }
 }
 export {data}
