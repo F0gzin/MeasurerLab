@@ -18,6 +18,7 @@ console.log(nomeDoPosto);
 const Translations = {
     "gasoline":"Gasolina",
     "gasoline_b":"Gasolina Aditivada",
+    "gasoline_premium":"Gasolina Premium",
     "gasolina":"Gasolina",
     "etanol":"Etanol",
     "diesel":"Diesel",
@@ -150,7 +151,7 @@ const AnaliseProductInput = document.getElementById("AnaliseProductInput");
 AnaliseProductInput.addEventListener("change",function(ev){ 
     console.log(Translations[AnaliseProductInput.value]);
     DadosSalvos.Analise.Produto = Translations[AnaliseProductInput.value] ? Translations[AnaliseProductInput.value] : String(AnaliseProductInput.value);
-    if(AnaliseProductInput.value === "gasoline" || AnaliseProductInput.value === "gasoline_b"){
+    if(AnaliseProductInput.value === "gasoline" || AnaliseProductInput.value === "gasoline_b" || AnaliseProductInput.value === "gasoline_premium"){
         AnalisePHInputText.hidden = false;
         AnalisePHInput.hidden = false;
     }else{
@@ -160,14 +161,14 @@ AnaliseProductInput.addEventListener("change",function(ev){
 })
 
 GeneratePdfButton.addEventListener("click",async function(ev){
-    /*console.log(DadosSalvos);
+    
     if(!LastAnaliseWasValid){
         alert("Não pode gerar PDF para analises inválidas.")
         return;
-    }*/
-    // Valeu GPT!
+    }
+  
     const urlDoPDF = "../Assets/Pdf_Template.pdf";
-    // Carrega PDF existente (template)
+
     const existingPdfBytes = await fetch(urlDoPDF).then(res => res.arrayBuffer());
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
@@ -179,7 +180,6 @@ GeneratePdfButton.addEventListener("click",async function(ev){
     let offsetX = -10;
     let offsetY = 100;
 
-    // Desenha o valor no lugar do placeholder
     console.log(DadosSalvos);
     try{
         primeiraPagina.drawText(DadosSalvos.Nota.Numero, { // número 
@@ -360,7 +360,7 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
     const alphaTable = {
         "gasoline": 0.00120,
         "gasoline_b": 0.00120,
-        
+        "gasoline_premium": 0.00120,
         "etanol"  : 0.00109,
         "diesel"  : 0.00083,
     };
@@ -389,7 +389,7 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
             teor = `<span style="color:#E53E3E";>✖ Fora da medida</span>`;
 
             textOutputAnalise.innerHTML = teor; 
-            return
+            return;
         }
         let ok = (dens >= ref.min && dens <= ref.max);
 
@@ -1427,6 +1427,8 @@ ConfirmAnaliseButton.addEventListener("click",function(ev){
 
         if(ok){
             LastAnaliseWasValid = true;
+        }else{
+            LastAnaliseWasValid = false;
         }
     }else{
         window.alert("⚠️ Por favor, insira valores válidos. ⚠️");
