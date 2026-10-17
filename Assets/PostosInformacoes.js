@@ -36,9 +36,9 @@ const data = {
         "rede"    : "Rede Campeão",
     },
     "SP0193970":{
-        "name"    : "CAMPEÃO 88 Posto de Serviços LTDA",
+        "name"    : "CAMPEÃO 38 Posto de Serviços LTDA",
         "cnpj"    : "07.745.113/0001-65",
-        "address" : "Rodovia dos Bandeirantes - KM 88 Jordanésia Cajamar/SP",
+        "address" : "Rodovia dos Bandeirantes - KM 38 Jordanésia Cajamar/SP",
         "rede"    : "Rede Campeão",
     },
     "SP0193677":{
