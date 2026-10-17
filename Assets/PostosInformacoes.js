@@ -53,6 +53,12 @@ const data = {
         "address" : "Rodovia dos Bandeirantes - s/n KM 68,5 Jardim Ernida II/SP",
         "rede"    : "Rede Campeão",
     },
+    "SP0019388":{
+        "name"    : "Centro Automotivo Invicto LTDA",
+        "cnpj"    : "01.266.195/0001-89",
+        "address" : "Rua Condessa de Pinhal, 84 V. Congonhas/SP",
+        "rede"    : "Rede Campeão"
+    },
     "other":{
         "name"    : null,
         "cnpj"    : null,
